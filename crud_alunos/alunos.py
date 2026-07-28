@@ -78,24 +78,3 @@ def remover_aluno(alunos):
         print("Aluno não encontrado!")
 
 
-alunos = []
-while True:
-    menu()
-    opcao = int(input("Opção desejada: "))
-    if opcao == 1:
-        cadastrar_aluno(alunos)
-    elif opcao == 2:
-        listar_alunos(alunos)
-    elif opcao == 3:
-        buscar_aluno(alunos)
-    elif opcao == 4:
-        alterar_nota(alunos)
-    elif opcao == 5:
-        remover_aluno(alunos)
-    elif opcao == 6:
-        print("Programa encerrado!")
-        break
-    else:
-        print("Opção inválida")
-
-
