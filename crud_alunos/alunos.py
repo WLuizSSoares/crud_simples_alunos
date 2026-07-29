@@ -1,11 +1,34 @@
 def cadastrar_aluno(alunos):
-    nome = input("Nome: ").lower()
-    idade = int(input("Idade: "))
-    nota = float(input("Nota: "))
-    ficha = {"nome": nome,
-             "idade": idade,
-             "nota": nota}
-    alunos.append(ficha)
+
+
+        while True:
+            try:
+                nome = input("Nome: ").strip().lower()
+                idade = int(input("Idade: "))
+                nota = float(input("Nota: "))
+
+                if idade < 0:
+                    print("Idade inválida!")
+                    continue
+
+                if nota < 0 or nota > 10:
+                    print("Nota deve ser entre 0 e 10!")
+                    continue
+
+                ficha = {
+                    "nome": nome,
+                    "idade": idade,
+                    "nota": nota
+                }
+
+                alunos.append(ficha)
+                print("Aluno cadastrado!")
+                break
+
+            except ValueError:
+                print("Digite valores válidos! ")
+
+
 
 
 def menu():
@@ -34,22 +57,33 @@ def listar_alunos(alunos):
 
 
 def buscar_aluno(alunos):
-    nomeProcurado = input("Nome para busca: ").strip().lower()
-    encontrado = False
-    for i in alunos:
-        if nomeProcurado == i['nome']:
-            print("Aluno encontrado!")
-            print("")
-            print(f"""
-            Nome: {i['nome']}
-            Idade: {i['idade']}
-            Nota: {i['nota']}
-            """)
-            encontrado = True
-            break
-    if not encontrado:
-        print("Aluno não encontrado.")
+    while True:
 
+        if len(alunos) > 0:
+            nomeProcurado = input("Nome para busca: ").strip().lower()
+
+            if nomeProcurado != "":
+                encontrado = False
+                for i in alunos:
+                    if nomeProcurado == i['nome']:
+                        print("")
+                        print(f"""
+                        Nome: {i['nome']}
+                        Idade: {i['idade']}
+                        Nota: {i['nota']}
+                        """)
+                        encontrado = True
+
+                if not encontrado:
+                    print("Aluno não encontrado.")
+
+            else:
+                print("Digite um nome, por favor!")
+                break
+        else:
+            print("Lista vazia, busca impossível.")
+            break
+        break
 
 def alterar_nota(alunos):
     nomeAlterar = input("Nome para alteração: ").strip().lower()
