@@ -1,5 +1,16 @@
 def cadastrar_aluno(alunos):
+        """Interage com o usuário para cadastrar um aluno e o adiciona à lista.
 
+        A função solicita nome, idade e nota via terminal, valida os ados e insere o
+        dicionário aluno diretamente na lista fornecida.
+
+        Args:
+            alunos (list): A lista onde o dicionário do aluno é inserido.
+
+        Note:
+            Esta função altera a lista 'alunos' in-place e não possui retorno.
+
+        """
 
         while True:
             try:
@@ -7,7 +18,7 @@ def cadastrar_aluno(alunos):
                 idade = int(input("Idade: "))
                 nota = float(input("Nota: "))
 
-                if idade < 0:
+                if idade < 1:
                     print("Idade inválida!")
                     continue
 
@@ -32,6 +43,7 @@ def cadastrar_aluno(alunos):
 
 
 def menu():
+    """Exibe um menu com as opções do sistema."""
     print("""
     ===============
     Sistema Escolar
@@ -47,25 +59,44 @@ def menu():
 
 
 def listar_alunos(alunos):
-    for i in alunos:
-        print(f"""
-        ---------------------
-        Nome: {i['nome']}
-        Idade: {i['idade']}
-        Nota: {i['nota']}
-        ---------------------""")
+    """Exibe na tela os dados de todos os alunos cadastrados na lista.
+
+        A função percorre a lista de alunos e formata a exibição de cada registro no terminal.
+        Se a lista estiver vazia, exibe mensagem de alerta.
+
+        Args:
+            alunos (list): A lista onde estão armazenados os dados para exibição
+    """
+    if not alunos:
+        print("Lista está vazia!!")
+    else:
+        for i in alunos:
+            print(f"""
+            ---------------------
+            Nome: {i['nome']}
+            Idade: {i['idade']}
+            Nota: {i['nota']}
+            ---------------------""")
 
 
 def buscar_aluno(alunos):
+    """Busca e exibe os dados de um aluno pelo nome.
+
+    A função interage com o usuário para obter o nome do aluno, realiza a
+    busca na lista fornecida e imprime os dados se encontrados. Caso a lista
+    esteja vazia ou o aluno não exista, exibe mensagens de aviso.
+
+    Args:
+        alunos (list): A lista de dicionários onde a busca será realizada.
+    """
     while True:
-
         if len(alunos) > 0:
-            nomeProcurado = input("Nome para busca: ").strip().lower()
+            nome_procurado = input("Nome para busca: ").strip().lower()
 
-            if nomeProcurado != "":
+            if nome_procurado != "":
                 encontrado = False
                 for i in alunos:
-                    if nomeProcurado == i['nome']:
+                    if nome_procurado == i['nome']:
                         print("")
                         print(f"""
                         Nome: {i['nome']}
@@ -86,12 +117,12 @@ def buscar_aluno(alunos):
         break
 
 def alterar_nota(alunos):
-    nomeAlterar = input("Nome para alteração: ").strip().lower()
+    nome_alterar = input("Nome para alteração: ").strip().lower()
     encontrado = False
     for i in alunos:
-        if nomeAlterar == i['nome']:
-            novaNota = float(input("Nova nota: "))
-            i['nota'] = novaNota
+        if nome_alterar == i['nome']:
+            nova_nota = float(input("Nova nota: "))
+            i['nota'] = nova_nota
             encontrado = True
             print("Nota alterada com sucesso!")
             break
@@ -100,10 +131,10 @@ def alterar_nota(alunos):
 
 
 def remover_aluno(alunos):
-    nomeRemover = input("Nome para remoção: ").strip().lower()
+    nome_remover = input("Nome para remoção: ").strip().lower()
     encontrado = False
     for i in alunos:
-        if nomeRemover == i['nome']:
+        if nome_remover == i['nome']:
             alunos.remove(i)
             encontrado = True
             print("Aluno removido com sucesso!")
