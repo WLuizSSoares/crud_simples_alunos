@@ -1,3 +1,7 @@
+def ler_nome(mensagem):
+    return input("Nome: ").strip().lower()
+
+
 def cadastrar_aluno(alunos):
         """Interage com o usuário para cadastrar um aluno e o adiciona à lista.
 
@@ -14,7 +18,7 @@ def cadastrar_aluno(alunos):
 
         while True:
             try:
-                nome = input("Nome: ").strip().lower()
+                nome = ler_nome("Nome: ")
                 idade = int(input("Idade: "))
                 nota = float(input("Nota: "))
 
@@ -91,7 +95,7 @@ def buscar_aluno(alunos):
     """
     while True:
         if len(alunos) > 0:
-            nome_procurado = input("Nome para busca: ").strip().lower()
+            nome_procurado = ler_nome("Nome para busca: ")
 
             if nome_procurado != "":
                 encontrado = False
@@ -99,17 +103,16 @@ def buscar_aluno(alunos):
                     if nome_procurado == i['nome']:
                         print("")
                         print(f"""
-                        Nome: {i['nome']}
-                        Idade: {i['idade']}
-                        Nota: {i['nota']}
-                        """)
-                        encontrado = True
+                    Nome: {i['nome']}
+                    Idade: {i['idade']}
+                    Nota: {i['nota']}
+                    """)
+                    encontrado = True
 
                 if not encontrado:
                     print("Aluno não encontrado.")
-
             else:
-                print("Digite um nome, por favor!")
+                print("Espaço vazio, busca impossibilitada!")
                 break
         else:
             print("Lista vazia, busca impossível.")
@@ -117,7 +120,20 @@ def buscar_aluno(alunos):
         break
 
 def alterar_nota(alunos):
-    nome_alterar = input("Nome para alteração: ").strip().lower()
+    """Busca um aluno pelo nome e altera a nota de um aluno.
+
+    Solicita ao usuário o nome do aluno, procura o registro na lista
+    informada e, quando encontrado, solicita a nova nota e atualiza o
+    valor armazenado. Caso o aluno não seja encontrado, exibe uma
+    mensagem informativa.
+
+    Args:
+        Lista de dicionários onde contém os alunos para alteração
+    Returns:
+         None
+    """
+
+    nome_alterar = ler_nome("Nome para alteração: ")
     encontrado = False
     for i in alunos:
         if nome_alterar == i['nome']:
@@ -131,7 +147,20 @@ def alterar_nota(alunos):
 
 
 def remover_aluno(alunos):
-    nome_remover = input("Nome para remoção: ").strip().lower()
+    """
+    Remove um aluno da lista pelo nome.
+
+    Solicita ao usuário o nome do aluno, procura o registro na lista e,
+    caso seja encontrado, remove o aluno. Se o aluno não existir, exibe
+    uma mensagem informativa.
+
+    Args:
+        alunos (list): Lista de dicionários contendo os alunos cadastrados.
+
+    Returns:
+        None
+    """
+    nome_remover = ler_nome("Nome para remoção: ")
     encontrado = False
     for i in alunos:
         if nome_remover == i['nome']:
