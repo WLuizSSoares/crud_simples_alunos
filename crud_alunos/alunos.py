@@ -1,5 +1,24 @@
 def ler_nome(mensagem):
-    return input("Nome: ").strip().lower()
+    return input(mensagem).strip().lower()
+def ler_nota(mensagem):
+    try:
+        nota = float(input(mensagem).strip().lower())
+    except:
+        pass
+
+def buscar_por_nome(alunos, nome):
+    for i in alunos:
+        if nome == i["nome"]:
+            return i
+    return None
+
+def exibir_aluno(aluno):
+    print(f"""
+        Nome: {aluno['nome']}
+        Idade: {aluno['idade']}
+        Nota: {aluno['nota']}
+        """)
+
 
 
 def cadastrar_aluno(alunos):
@@ -71,16 +90,11 @@ def listar_alunos(alunos):
         Args:
             alunos (list): A lista onde estão armazenados os dados para exibição
     """
-    if not alunos:
-        print("Lista está vazia!!")
-    else:
+    if alunos:
         for i in alunos:
-            print(f"""
-            ---------------------
-            Nome: {i['nome']}
-            Idade: {i['idade']}
-            Nota: {i['nota']}
-            ---------------------""")
+            exibir_aluno(i)
+    else:
+        print("Nenhum aluno cadastrado")
 
 
 def buscar_aluno(alunos):
@@ -93,31 +107,14 @@ def buscar_aluno(alunos):
     Args:
         alunos (list): A lista de dicionários onde a busca será realizada.
     """
-    while True:
-        if len(alunos) > 0:
-            nome_procurado = ler_nome("Nome para busca: ")
 
-            if nome_procurado != "":
-                encontrado = False
-                for i in alunos:
-                    if nome_procurado == i['nome']:
-                        print("")
-                        print(f"""
-                    Nome: {i['nome']}
-                    Idade: {i['idade']}
-                    Nota: {i['nota']}
-                    """)
-                    encontrado = True
+    nome_procurado = ler_nome("Nome para busca: ")
+    aluno = buscar_por_nome(alunos, nome_procurado)
 
-                if not encontrado:
-                    print("Aluno não encontrado.")
-            else:
-                print("Espaço vazio, busca impossibilitada!")
-                break
-        else:
-            print("Lista vazia, busca impossível.")
-            break
-        break
+    if aluno:
+        exibir_aluno(aluno)
+    else:
+        print("Nenhum aluno cadastrado!")
 
 def alterar_nota(alunos):
     """Busca um aluno pelo nome e altera a nota de um aluno.
@@ -128,22 +125,18 @@ def alterar_nota(alunos):
     mensagem informativa.
 
     Args:
-        Lista de dicionários onde contém os alunos para alteração
+        alunos(list): Lista de dicionários onde contém os alunos para alteração
     Returns:
          None
     """
-
     nome_alterar = ler_nome("Nome para alteração: ")
-    encontrado = False
-    for i in alunos:
-        if nome_alterar == i['nome']:
-            nova_nota = float(input("Nova nota: "))
-            i['nota'] = nova_nota
-            encontrado = True
-            print("Nota alterada com sucesso!")
-            break
-    if not encontrado:
-        print("Aluno não encontrado")
+    aluno = buscar_por_nome(alunos, nome_alterar)
+    if aluno:
+        nova_nota = float(input("Nova nota: "))
+        aluno['nota'] = nova_nota
+        print("Nota alterada com sucesso!")
+    else:
+        print("Aluno não encontrado.")
 
 
 def remover_aluno(alunos):
@@ -161,14 +154,13 @@ def remover_aluno(alunos):
         None
     """
     nome_remover = ler_nome("Nome para remoção: ")
-    encontrado = False
-    for i in alunos:
-        if nome_remover == i['nome']:
-            alunos.remove(i)
-            encontrado = True
-            print("Aluno removido com sucesso!")
-            break
-    if not encontrado:
+    aluno = buscar_por_nome(alunos, nome_remover)
+    if aluno:
+        alunos.remove(aluno)
+        print("Aluno removido com sucesso!")
+    else:
         print("Aluno não encontrado!")
+
+
 
 
