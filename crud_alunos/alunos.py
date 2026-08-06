@@ -1,10 +1,33 @@
 def ler_nome(mensagem):
-    return input(mensagem).strip().lower()
+    while True:
+        nome = input(mensagem).strip().lower()
+        if nome == "":
+            print("Espaço vazio, digite um nome válido!")
+            continue
+        return nome
 def ler_nota(mensagem):
-    try:
-        nota = float(input(mensagem).strip().lower())
-    except:
-        pass
+    while True:
+        try:
+            nota = float(input(mensagem))
+
+            if nota < 0 or nota > 10:
+                print("Nota deve ser entre 0 e 10!")
+                continue
+            return nota
+        except ValueError:
+            print("Nota inválida! ")
+
+def ler_idade(mensagem):
+    while True:
+        try:
+            idade = int(input(mensagem))
+            if idade < 0:
+                print("Idade não pode ser negativa")
+                continue
+
+            return idade
+        except ValueError:
+            print("Idade inválida")
 
 def buscar_por_nome(alunos, nome):
     for i in alunos:
@@ -35,49 +58,35 @@ def cadastrar_aluno(alunos):
 
         """
 
-        while True:
-            try:
-                nome = ler_nome("Nome: ")
-                idade = int(input("Idade: "))
-                nota = float(input("Nota: "))
+        nome = ler_nome("Nome: ")
+        idade = ler_idade("Idade: ")
+        nota = ler_nota("Nota: ")
 
-                if idade < 1:
-                    print("Idade inválida!")
-                    continue
+        ficha = {
+            "nome": nome,
+            "idade": idade,
+            "nota": nota
+        }
 
-                if nota < 0 or nota > 10:
-                    print("Nota deve ser entre 0 e 10!")
-                    continue
-
-                ficha = {
-                    "nome": nome,
-                    "idade": idade,
-                    "nota": nota
-                }
-
-                alunos.append(ficha)
-                print("Aluno cadastrado!")
-                break
-
-            except ValueError:
-                print("Digite valores válidos! ")
-
+        alunos.append(ficha)
+        print("Aluno cadastrado!")
 
 
 
 def menu():
     """Exibe um menu com as opções do sistema."""
     print("""
-    ===============
-    Sistema Escolar
-    ================
+    =============================
+        Sistema Escolar V_2.0
+    =============================
 
     1 - Cadastrar aluno
     2 - Listar alunos
     3 - Buscar aluno
     4 - Alterar nota
     5 - Remover aluno
-    6 - Sair
+    6 - Outras opções
+    7 - Sair
     """)
 
 
