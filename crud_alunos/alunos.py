@@ -5,6 +5,7 @@ def ler_nome(mensagem):
             print("Espaço vazio, digite um nome válido!")
             continue
         return nome
+
 def ler_nota(mensagem):
     while True:
         try:
@@ -62,13 +63,13 @@ def cadastrar_aluno(alunos):
         idade = ler_idade("Idade: ")
         nota = ler_nota("Nota: ")
 
-        ficha = {
+        aluno = {
             "nome": nome,
             "idade": idade,
             "nota": nota
         }
 
-        alunos.append(ficha)
+        alunos.append(aluno)
         print("Aluno cadastrado!")
 
 
@@ -85,8 +86,7 @@ def menu():
     3 - Buscar aluno
     4 - Alterar nota
     5 - Remover aluno
-    6 - Outras opções
-    7 - Sair
+    6 - Sair
     """)
 
 
@@ -123,7 +123,7 @@ def buscar_aluno(alunos):
     if aluno:
         exibir_aluno(aluno)
     else:
-        print("Nenhum aluno cadastrado!")
+        print("Aluno não encontrado!")
 
 def alterar_nota(alunos):
     """Busca um aluno pelo nome e altera a nota de um aluno.
@@ -141,7 +141,7 @@ def alterar_nota(alunos):
     nome_alterar = ler_nome("Nome para alteração: ")
     aluno = buscar_por_nome(alunos, nome_alterar)
     if aluno:
-        nova_nota = float(input("Nova nota: "))
+        nova_nota = ler_nota("Nova nota: ")
         aluno['nota'] = nova_nota
         print("Nota alterada com sucesso!")
     else:
